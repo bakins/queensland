@@ -3,7 +3,7 @@ package main
 import (
 	"net"
 
-	"github.com/spf13/cobra"
+	"github.com/mistifyio/queensland/Godeps/_workspace/src/github.com/spf13/cobra"
 )
 
 type (

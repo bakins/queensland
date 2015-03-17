@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coreos/etcd/client"
-	"github.com/spf13/cobra"
-	"golang.org/x/net/context"
+	"github.com/mistifyio/queensland/Godeps/_workspace/src/github.com/coreos/etcd/client"
+	"github.com/mistifyio/queensland/Godeps/_workspace/src/github.com/spf13/cobra"
+	"github.com/mistifyio/queensland/Godeps/_workspace/src/golang.org/x/net/context"
 )
 
 type serviceAnnouncement struct {

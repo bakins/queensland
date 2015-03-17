@@ -9,8 +9,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/coreos/etcd/client"
-	etcdErr "github.com/coreos/etcd/error"
+	"github.com/mistifyio/queensland/Godeps/_workspace/src/github.com/coreos/etcd/client"
+	etcdErr "github.com/mistifyio/queensland/Godeps/_workspace/src/github.com/coreos/etcd/error"
 )
 
 func isKeyNotFound(err error) bool {
