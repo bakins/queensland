@@ -8,9 +8,11 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
+	"time"
 
 	"github.com/mistifyio/queensland/Godeps/_workspace/src/github.com/coreos/etcd/client"
 	etcdErr "github.com/mistifyio/queensland/Godeps/_workspace/src/github.com/coreos/etcd/error"
+	"golang.org/x/net/context"
 )
 
 func isKeyNotFound(err error) bool {
@@ -72,16 +74,19 @@ func getNodeName() (string, error) {
 
 }
 
-func handleRemoveOnExit(e *etcd.Client, key string) {
+func handleRemoveOnExit(e client.Client, key string) {
 	if removeOnExit {
 		c := make(chan os.Signal, 1)
 		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
 		go func() {
 			for _ = range c {
-				_, err := e.Delete(key, false)
-				if err != nil {
+				kAPI := client.NewKeysAPI(e)
+
+				ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+				if _, err := kAPI.Delete(ctx, key, nil); err != nil {
 					log.Printf("delete of '%s' failed: %s", key, err)
 				}
+				cancel()
 				os.Exit(0)
 			}
 		}()
